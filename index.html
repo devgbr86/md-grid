@@ -2,71 +2,65 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>orange-codex</title>
-  <link rel="icon" href="orange_cube.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="main.css" />
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>Codex PRO</title>
+     <link rel="icon" type="image/png" href="orange_cube.png" />
+     <link rel="stylesheet" href="main.css" />
 </head>
 
 <body>
 
-  <div id="drag-overlay">Drop .md file here</div>
+     <!-- ── Navbar ── -->
+     <nav id="navbar">
+          <a id="nav-logo-link" href="javascript:void(0)" onclick="window.location.reload()" title="MD Grid — home">
+               <img src="orange_cube.png" alt="Codex PRO icon" />
+               <span class="site-title">Codex PRO</span>
+          </a>
+     </nav>
 
-  <div id="app">
+     <!-- ── Layout ── -->
+     <div id="wrapper">
 
-    <!-- Sidebar -->
-    <aside id="sidebar">
-      <div id="sidebar-header">
-        <span class="logo"><img style="width: 35px; height: 35px; border-radius: 50%;" src="orange_cube.png"></span>
-        <button id="open-btn" title="Open file">open</button>
-      </div>
-      <div id="file-info">no file open</div>
-      <nav id="toc-container">
-        <span class="toc-empty">—</span>
-      </nav>
-    </aside>
+          <!-- Sidebar file tree -->
+          <aside id="sidebar">
+               <div id="sidebar-tree"></div>
+          </aside>
 
-    <!-- Main -->
-    <div id="main">
+          <!-- Main content -->
+          <main id="main">
 
-      <div id="toolbar">
-        <button class="tool-btn" id="toggle-sidebar" title="Toggle sidebar">☰</button>
-        <div class="tool-sep"></div>
-        <span id="doc-title"></span>
-        <span id="reading-time"></span>
-      </div>
+               <!-- Back button -->
+               <button id="back-btn" title="Back to home">&#8592; Back</button>
 
-      <div id="viewer">
-        <div id="content">
-          <div id="empty-state">
-            <div class="empty-icon">◈</div>
-            <div class="empty-title">Markdown Viewer</div>
-            <div class="empty-sub">Open a .md file or drag it here.</div>
-            <button class="empty-open-btn" id="empty-open-btn">Open file</button>
-          </div>
-        </div>
-      </div>
+               <!-- Home view: category grid -->
+               <section id="home-view">
+                    <h1>Codex PRO</h1>
+                    <p class="lead">
+                         A central index of personal documents and projects.<br>
+                         Select a category below to browse articles.
+                    </p>
+                    <div class="category-grid" id="category-grid">
+                         <!-- Built by main.js -->
+                    </div>
+               </section>
 
-      <div id="statusbar">
-        <span id="status-words">—</span>
-        <span id="status-lines">—</span>
-        <span id="status-pos">—</span>
-      </div>
+               <!-- Article view: rendered markdown -->
+               <section id="article-view">
+                    <h1 class="article-title" id="article-title"></h1>
+                    <div id="article-content"></div>
+               </section>
 
-    </div>
-  </div>
+          </main>
+     </div>
 
-  <!-- Hidden file input -->
-  <input type="file" id="file-input" accept=".md,.markdown,.txt" style="display:none" />
+     <!-- ── Footer ── -->
+     <footer id="footer">
+          <span>&copy; Codex PRO &mdash;</span>
+          <a href="https://github.com/devgbr86" target="_blank" rel="noopener">github.com/devgbr86</a>
+     </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script type="module" src="main.js"></script>
+     <script src="main.js"></script>
 </body>
 
 </html>
