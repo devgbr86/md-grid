@@ -8,6 +8,7 @@ const ARTICLES = {
   websites: [
     { path: "websites/caffe-wiki.md", label: "Caffe Wikipedia" },
         { path: "websites/scss-demo.md", label: "SCSS Layout Flexbox Grid Showcase" },
+        { path: "websites/tesseract.md", label: "4D Polytope Visualizer" },
 
   ],
   tools: [
@@ -25,7 +26,7 @@ const ARTICLES = {
     { path: "config/vscode.md", label: "VSCode essentials" },
   ],
   extras: [
-    { path: "extras/tesseract.md", label: "4D Polytope Visualizer" },
+    { path: "extras/guides.md", label: "Guides/Links" },
   ],
 };
 
