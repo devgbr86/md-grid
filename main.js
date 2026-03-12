@@ -14,7 +14,7 @@ const ARTICLES = {
   tools: [
     { path: "tools/md-editor.md", label: "Markdown Editor" },
     { path: "tools/snap-code.md", label: "Code Snippets Screenshots" },
-    { path: "tools/nebula-movies.md", label: "Science Fiction Movie Search" },
+    { path: "tools/movie-api.md", label: "Science Fiction Movie API" },
         { path: "tools/img-converter.md", label: "Image Converter" },
 
   ],
