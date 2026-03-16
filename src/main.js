@@ -14,11 +14,11 @@ const ARTICLES = {
   tools: [
     { path: "tools/md-editor.md", label: "Markdown Editor" },
     { path: "tools/snap-code.md", label: "Code Snippets Screenshots" },
-    { path: "tools/movie-api.md", label: "Science Fiction Movie API" },
         { path: "tools/img-converter.md", label: "Image Converter" },
 
   ],
   api: [
+        { path: "api/movie-api.md", label: "Science Fiction Movie API" },
     { path: "api/api-workerskv.md", label: "API integration Workers KV" },
   ],
   config: [

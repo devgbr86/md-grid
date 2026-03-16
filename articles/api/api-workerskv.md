@@ -1,80 +1,80 @@
 # Skill Vault
 
-Personal vault deployed on Cloudflare Pages with token-based authentication, persistent notes, and file downloads. Backend logic runs entirely on Cloudflare Workers with KV storage.
+Cofre pessoal implantado no Cloudflare Pages com autenticação baseada em token, notas persistentes e downloads de arquivos. Toda a lógica de backend roda em Cloudflare Workers com armazenamento em KV.
 
 ---
 
 ## Stack
 
-- **Cloudflare Pages** — static hosting
-- **Cloudflare Workers** — serverless backend (`_worker.js`)
-- **Cloudflare KV** — persistent storage for tokens, notes, and access logs
-- **Vanilla JS + CSS** — no frameworks, no build step
+- **Cloudflare Pages** — hospedagem estática
+- **Cloudflare Workers** — backend serverless (`_worker.js`)
+- **Cloudflare KV** — armazenamento persistente para tokens, notas e logs de acesso
+- **Vanilla JS + CSS** — sem frameworks, sem etapa de build
 
 ---
 
-## Project Structure
+## Estrutura do projeto
 
 ```
 /
-├── _worker.js          # Worker: auth + notes API + asset protection
-├── index.html          # Login screen and vault shell
+├── _worker.js          # Worker: autenticação + API de notas + proteção de assets
+├── index.html          # Tela de login e shell do cofre
 ├── assets/
-│   ├── css/main.css    # All styles
-│   └── js/main.js      # Auth, notes, downloads logic
-├── downloads/          # Protected files (.md, .epub, .pdf, etc.)
+│   ├── css/main.css    # Todos os estilos
+│   └── js/main.js      # Lógica de autenticação, notas e downloads
+├── downloads/          # Arquivos protegidos (.md, .epub, .pdf, etc.)
 └── README.md
 ```
 
 ---
 
-## Authentication
+## Autenticação
 
-Access is controlled by a username token stored directly in KV. The client submits the token and the Worker validates it against the KV namespace.
+O acesso é controlado por um token de nome de usuário armazenado diretamente no KV. O cliente envia o token e o Worker o valida contra o namespace KV.
 
-- Tokens are managed manually in the Cloudflare KV dashboard
-- To create access: add a key `{username}` with any value (e.g. `active`)
-- To revoke access: delete the key from KV
-- Notes data is stored separately under `notes:{username}` and is not affected by token changes
+- Os tokens são gerenciados manualmente pelo painel do Cloudflare KV
+- Para criar um acesso: adicione uma chave `{usuario}` com qualquer valor (por exemplo: `ativo`)
+- Para revogar um acesso: exclua a chave do KV
+- Os dados das notas são armazenados separadamente em `notas:{usuario}` e não são afetados por alterações nos tokens
 
-### KV Key Schema
+### Esquema de chaves do KV
 
-| Key | Description |
+| Chave | Descrição |
 |---|---|
-| `{username}` | Access token. Value can be any string. |
-| `notes:{username}` | JSON array of the user's notes. |
-| `log:{YYYY-MM-DD}` | Daily access log. Expires after 30 days. |
+| `{usuario}` | Token de acesso. O valor pode ser qualquer string. |
+| `notes:{usuario}` | Array JSON com as notas do usuário. |
+| `log:{YYYY-MM-DD}` | Log de acesso diário. Expira após 30 dias. |
 
 ---
 
-## API Endpoints
+## Endpoints da API
 
-All endpoints are handled by `_worker.js`.
+Todos os endpoints são tratados pelo `_worker.js`.
 
 ### POST /api/auth
-Validates a username token and returns session confirmation.
+Valida um token de nome de usuário e retorna a confirmação de sessão.
 
-**Request**
+**Requisição**
 ```json
-{ "username": "your-token" }
+{ "username": "seu-token" }
 ```
 
-**Response**
+**Resposta**
 ```json
-{ "success": true, "token": "<uuid>", "user": "your-token" }
+{ "success": true, "token": "<uuid>", "user": "seu-token" }
 ```
 
 ---
 
 ### POST /api/validate
-Checks whether a username is still valid in KV.
+Verifica se um nome de usuário ainda é válido no KV.
 
-**Request**
+**Requisição**
 ```json
-{ "username": "your-token" }
+{ "username": "seu-token" }
 ```
 
-**Response**
+**Resposta**
 ```json
 { "valid": true }
 ```
@@ -82,14 +82,14 @@ Checks whether a username is still valid in KV.
 ---
 
 ### GET /api/notes
-Returns the authenticated user's notes array.
+Retorna o array de notas do usuário autenticado.
 
 **Headers**
 ```
-Authorization: Bearer {username}
+Authorization: Bearer {usuario}
 ```
 
-**Response**
+**Resposta**
 ```json
 { "notes": [ { "id": "...", "titulo": "...", "conteudo": "...", "criadoEm": "...", "atualizadoEm": "..." } ] }
 ```
@@ -97,42 +97,42 @@ Authorization: Bearer {username}
 ---
 
 ### POST /api/notes
-Saves the full notes array for the authenticated user, overwriting previous state.
+Salva o array completo de notas do usuário autenticado, sobrescrevendo o estado anterior.
 
 **Headers**
 ```
-Authorization: Bearer {username}
+Authorization: Bearer {usuario}
 Content-Type: application/json
 ```
 
-**Request**
+**Requisição**
 ```json
 { "notes": [ ... ] }
 ```
 
 ---
 
-## Notes
+## Notas
 
-Each note object follows this structure:
+Cada objeto de nota segue esta estrutura:
 
 ```json
 {
   "id": "1700000000000",
-  "titulo": "Note title",
-  "conteudo": "Note body text",
+  "titulo": "Título da nota",
+  "conteudo": "Corpo da nota",
   "criadoEm": "2026-01-01T00:00:00.000Z",
   "atualizadoEm": "2026-01-01T00:00:00.000Z"
 }
 ```
 
-Notes are stored as a JSON array in KV. The entire array is sent on every save operation (last-write-wins).
+As notas são armazenadas como um array JSON no KV. O array completo é enviado a cada operação de salvamento (o último a escrever prevalece).
 
 ---
 
 ## Downloads
 
-Files inside `downloads/` are served as static assets via Cloudflare Pages. The download list is defined in `main.js`:
+Os arquivos dentro de `downloads/` são servidos como assets estáticos pelo Cloudflare Pages. A lista de downloads é definida em `main.js`:
 
 ```js
 const downloads = [
@@ -141,19 +141,19 @@ const downloads = [
 ];
 ```
 
-To add a file: upload it to `downloads/` and add a new entry to the array.
+Para adicionar um arquivo: faça o upload para `downloads/` e adicione uma nova entrada ao array.
 
 ---
 
-## Deployment
+## Implantação
 
-1. Connect the repository to Cloudflare Pages
-2. Create a KV namespace (e.g. `VAULT_KV`) in the Cloudflare dashboard
-3. Bind the namespace to the Pages project under **Settings > Functions > KV namespace bindings** with the variable name `VAULT_KV`
-4. Deploy — no build command required
+1. Conecte o repositório ao Cloudflare Pages
+2. Crie um namespace KV (por exemplo: `VAULT_KV`) no painel do Cloudflare
+3. Vincule o namespace ao projeto Pages em **Settings > Functions > KV namespace bindings** com o nome de variável `VAULT_KV`
+4. Faça o deploy — nenhum comando de build é necessário
 
 ---
 
-## Author
+## Autor
 
-Developed by Guilherme Ribeiro — [fronthub.pages.dev](https://fronthub.pages.dev)
+Desenvolvido por Guilherme Ribeiro — [fronthub.pages.dev](https://fronthub.pages.dev)
