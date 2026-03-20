@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- -->
 
 <head>
      <meta charset="UTF-8" />
@@ -14,7 +13,7 @@
 
      <!-- ── Navbar ── -->
      <nav id="navbar">
-          <a id="nav-logo-link" href="javascript:void(0)" onclick="window.location.reload()" title="MD Grid — home">
+          <a id="nav-logo-link" href="/" title="MD Grid — home">
                <img src="./assets/orange_cube.png" alt="MDGrid icon" />
                <span class="site-title">MDGrid</span>
           </a>
@@ -23,30 +22,23 @@
      <!-- ── Layout ── -->
      <div id="wrapper">
 
-          <!-- Sidebar file tree -->
           <aside id="sidebar">
                <div id="sidebar-tree"></div>
           </aside>
 
-          <!-- Main content -->
           <main id="main">
 
-               <!-- Back button -->
                <button id="back-btn" title="Back to home">&#8592; Back</button>
 
-               <!-- Home view: category grid -->
                <section id="home-view">
                     <h1>MDGrid</h1>
                     <p class="lead">
                          Personal Projects, Documents and README archive.
                          <br>source code → github.com/devgbr86
                     </p>
-                    <div class="category-grid" id="category-grid">
-                         <!-- Built by main.js -->
-                    </div>
+                    <div class="category-grid" id="category-grid"></div>
                </section>
 
-               <!-- Article view: rendered markdown -->
                <section id="article-view">
                     <h1 class="article-title" id="article-title"></h1>
                     <div id="article-content"></div>
@@ -55,13 +47,12 @@
           </main>
      </div>
 
-     <!-- ── Footer ── -->
      <footer id="footer">
           <span>Personal Projects, Documents and README archive.</span>
           <a href="https://github.com/devgbr86" target="_blank" rel="noopener">source code → github.com/devgbr86</a>
      </footer>
 
-     <script src="./src/main.js"></script>
+     <script type="module" src="./src/main.js"></script>
 </body>
 
 </html>
